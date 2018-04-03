@@ -26,36 +26,6 @@ namespace SteamCaculator
             _User = new SteamUser();
             this.DataContext = _User;
         }
-        private SteamUser _User;
-
-        private void LevelCaculate_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-        private void LevelCaculate_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = _User != null;
-        }
-
-        private void FriendsLimitCaculate_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-        private void FriendsLimitCaculate_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = _User != null;
-        }
-
-        private void DisplayCaseLimitCaculate_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-        private void DisplayCaseLimitCaculate_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = _User != null;
-        }
+        private SteamUser _User;        
     }
 }

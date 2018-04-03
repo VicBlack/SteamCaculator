@@ -5,38 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SteamCaculator"
         mc:Ignorable="d"
-        Title="SteamLevelExpCaculator" Icon="steam.ico" Height="425" Width="600">
-    <Window.Resources>
-        <RoutedCommand x:Key="LevelCaculate"/>
-        <RoutedCommand x:Key="FriendsLimitCaculate"/>
-        <RoutedCommand x:Key="DisplayCaseLimitCaculate"/>
-    </Window.Resources>
-    <Window.CommandBindings>
-        <CommandBinding Command="{StaticResource LevelCaculate}" Executed="LevelCaculate_Executed" CanExecute="LevelCaculate_CanExecute"></CommandBinding>
-        <CommandBinding Command="{StaticResource FriendsLimitCaculate}" Executed="FriendsLimitCaculate_Executed" CanExecute="FriendsLimitCaculate_CanExecute"></CommandBinding>
-        <CommandBinding Command="{StaticResource DisplayCaseLimitCaculate}" Executed="DisplayCaseLimitCaculate_Executed" CanExecute="DisplayCaseLimitCaculate_CanExecute"></CommandBinding>
-    </Window.CommandBindings>
+        Title="SteamLevelExpCaculator" Icon="steam.ico" Height="475" Width="600">
     <StackPanel Orientation="Vertical">
         <GroupBox Header="当前等级或经验值，随便填一个就行" Margin="5" Padding="3">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="当前等级："/>
-                <TextBox VerticalContentAlignment="Center" Text="{Binding CurrentLevel,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
-                <Label Content="当前经验值："/>
-                <TextBox VerticalContentAlignment="Center" Text="{Binding CurrentExp,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
-            </StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                    <Label Content="当前等级："/>
+                    <TextBox VerticalContentAlignment="Center" Text="{Binding CurrentLevel,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <Label Margin="20,0,0,0" Content="当前经验值："/>
+                    <TextBox VerticalContentAlignment="Center" Text="{Binding CurrentExp,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                    <Label Content="当前好友上限数："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentFriendsLimit}" MinWidth="50"/>
+                    <Label Content="当前展示柜上限数："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDisplayCaseLimit}" MinWidth="50"/>
+                </StackPanel>
+            </StackPanel>            
         </GroupBox>
         <GroupBox Header="想计算升到某等级/好友上限数/展示柜上限数，需要多少经验和套牌数量的看这里" Margin="5" Padding="3">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
                     <Label Content="目标等级："/>
                     <TextBox VerticalContentAlignment="Center" Text="{Binding TargetLevel,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
-                    <Button Name="CaculateLevel" Content="计算" Command="{StaticResource LevelCaculate}" Margin="0,0,15,0"/>
-                    <Label Content="目标好友上限数："/>
+                    <Label Margin="20,0,0,0" Content="目标好友上限数："/>
                     <TextBox VerticalContentAlignment="Center" Text="{Binding TargetFriendsLimit,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
-                    <Button Content="计算" Command="{StaticResource FriendsLimitCaculate}" Margin="0,0,15,0"/>
-                    <Label Content="目标展示柜数："/>
+                    <Label Margin="20,0,0,0" Content="目标展示柜数："/>
                     <TextBox VerticalContentAlignment="Center" Text="{Binding TargetDisplayCaseLimit,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
-                    <Button Content="计算" Command="{StaticResource DisplayCaseLimitCaculate}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
                     <Label Content="所需经验值："/>
@@ -50,19 +45,19 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
                     <Label Content="拥有套牌数："/>
-                    <TextBox VerticalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=CaculateLevel}" Text="{Binding CurrentCards,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <TextBox VerticalContentAlignment="Center" Text="{Binding CurrentCards,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
-                    <Label Content="可达等级："/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachLevel,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
-                    <Label Content="可达经验值："/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachExp,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <Label Content="      可达等级："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachLevel}" MinWidth="50"/>
+                    <Label Content="距下一级经验值："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachNextExp}" MinWidth="50"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
                     <Label Content="可达好友上限数："/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachFriendsLimit,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachFriendsLimit}" MinWidth="50"/>
                     <Label Content="可达展示柜上限数："/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachDisplayCaseLimit,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachDisplayCaseLimit}" MinWidth="50"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
