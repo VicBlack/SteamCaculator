@@ -1,0 +1,76 @@
+﻿<Window x:Class="SteamCaculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SteamCaculator"
+        mc:Ignorable="d"
+        Title="SteamLevelExpCaculator" Icon="steam.ico" Height="425" Width="600">
+    <Window.Resources>
+        <RoutedCommand x:Key="LevelCaculate"/>
+        <RoutedCommand x:Key="FriendsLimitCaculate"/>
+        <RoutedCommand x:Key="DisplayCaseLimitCaculate"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource LevelCaculate}" Executed="LevelCaculate_Executed" CanExecute="LevelCaculate_CanExecute"></CommandBinding>
+        <CommandBinding Command="{StaticResource FriendsLimitCaculate}" Executed="FriendsLimitCaculate_Executed" CanExecute="FriendsLimitCaculate_CanExecute"></CommandBinding>
+        <CommandBinding Command="{StaticResource DisplayCaseLimitCaculate}" Executed="DisplayCaseLimitCaculate_Executed" CanExecute="DisplayCaseLimitCaculate_CanExecute"></CommandBinding>
+    </Window.CommandBindings>
+    <StackPanel Orientation="Vertical">
+        <GroupBox Header="当前等级或经验值，随便填一个就行" Margin="5" Padding="3">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="当前等级："/>
+                <TextBox VerticalContentAlignment="Center" Text="{Binding CurrentLevel,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                <Label Content="当前经验值："/>
+                <TextBox VerticalContentAlignment="Center" Text="{Binding CurrentExp,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="想计算升到某等级/好友上限数/展示柜上限数，需要多少经验和套牌数量的看这里" Margin="5" Padding="3">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                    <Label Content="目标等级："/>
+                    <TextBox VerticalContentAlignment="Center" Text="{Binding TargetLevel,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <Button Name="CaculateLevel" Content="计算" Command="{StaticResource LevelCaculate}" Margin="0,0,15,0"/>
+                    <Label Content="目标好友上限数："/>
+                    <TextBox VerticalContentAlignment="Center" Text="{Binding TargetFriendsLimit,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <Button Content="计算" Command="{StaticResource FriendsLimitCaculate}" Margin="0,0,15,0"/>
+                    <Label Content="目标展示柜数："/>
+                    <TextBox VerticalContentAlignment="Center" Text="{Binding TargetDisplayCaseLimit,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <Button Content="计算" Command="{StaticResource DisplayCaseLimitCaculate}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                    <Label Content="所需经验值："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding RequiredExp,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <Label Content="所需套牌数："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding RequiredCards,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="有不少套牌，看看能升到多少级，拥有多少经验/好友上限数/展示柜上限数" Margin="5" Padding="3">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                    <Label Content="拥有套牌数："/>
+                    <TextBox VerticalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=CaculateLevel}" Text="{Binding CurrentCards,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                    <Label Content="可达等级："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachLevel,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <Label Content="可达经验值："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachExp,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                    <Label Content="可达好友上限数："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachFriendsLimit,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                    <Label Content="可达展示柜上限数："/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ReachDisplayCaseLimit,UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="PS"  Margin="5" Padding="3">
+            <StackPanel HorizontalAlignment="Center" Margin="0,5,0,5">
+                <TextBlock Text="好友数量上限0级为250个,每升1级添加5个。展示柜数量上限最高13个可用展示柜，每升10级添加一个。"/>
+                <TextBlock Text="每组套牌合成获得100点经验值。"/>
+            </StackPanel>            
+        </GroupBox>
+    </StackPanel>
+</Window>
