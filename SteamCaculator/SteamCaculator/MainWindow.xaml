@@ -63,9 +63,9 @@
         </GroupBox>
         <GroupBox Header="PS"  Margin="5" Padding="3">
             <StackPanel HorizontalAlignment="Center" Margin="0,5,0,5">
-                <TextBlock Text="好友数量上限0级为250个,每升1级添加5个。展示柜数量上限最高13个可用展示柜，每升10级添加一个。"/>
-                <TextBlock Text="每组套牌合成获得100点经验值。"/>
-            </StackPanel>            
+                <TextBlock Text="好友数量上限0级为250个,每升1级添加5个，最大数量上限2000个。展示柜数量上限最高13个可用展示柜，"/>
+                <TextBlock Text="每升10级添加一个。每组套牌合成获得100点经验值。"/>
+            </StackPanel>
         </GroupBox>
     </StackPanel>
 </Window>

@@ -16,7 +16,7 @@ namespace SteamCaculator
         public int CurrentExp { get { return _CurrentExp; } set { if (_CurrentExp == value) return; _CurrentExp = Math.Max(value,0); _CurrentLevel = getLevelfromExp(_CurrentExp); OnPropertyChanged(nameof(CurrentExp)); OnPropertyChanged(nameof(CurrentLevel)); updateSomething(); getSomethingfromCard(); } }
         private int _CurrentExp;
 
-        public int CurrentFriendsLimit { get { return _CurrentFriendsLimit; } }
+        public int CurrentFriendsLimit { get { if (_CurrentFriendsLimit > 2000) return 2000; return _CurrentFriendsLimit; } }
         private int _CurrentFriendsLimit;
 
         public int CurrentDisplayCaseLimit { get { return _CurrentDisplayCaseLimit; } }
@@ -25,7 +25,7 @@ namespace SteamCaculator
         public int TargetLevel { get { return _TargetLevel; } set { /*if (value < _CurrentLevel) { _TargetLevel = _CurrentLevel; return; }*/ if (_TargetLevel == value) return; _TargetLevel = Math.Max(value, 0); OnPropertyChanged(nameof(TargetLevel)); getSomethingfromLevel(); } }
         private int _TargetLevel;
 
-        public int TargetFriendsLimit { get { return _TargetFriendsLimit; } set { /*if (value < _CurrentFriendsLimit) { _TargetFriendsLimit = _CurrentFriendsLimit; return; }*/ if (_TargetFriendsLimit == value) return; _TargetFriendsLimit = Math.Max(value, 0); OnPropertyChanged(nameof(TargetFriendsLimit)); getSomethingfromFriendsLimit(); } }
+        public int TargetFriendsLimit { get { if (_TargetFriendsLimit > 2000) return 2000; return _TargetFriendsLimit; } set { /*if (value < _CurrentFriendsLimit) { _TargetFriendsLimit = _CurrentFriendsLimit; return; }*/ if (_TargetFriendsLimit == value) return; _TargetFriendsLimit = Math.Max(value, 0); OnPropertyChanged(nameof(TargetFriendsLimit)); getSomethingfromFriendsLimit(); } }
         private int _TargetFriendsLimit;
 
         public int TargetDisplayCaseLimit { get { return _TargetDisplayCaseLimit; } set { /*if (value < _CurrentDisplayCaseLimit) { _TargetDisplayCaseLimit = _CurrentDisplayCaseLimit; return; }*/ if (_TargetDisplayCaseLimit == value) return; _TargetDisplayCaseLimit = Math.Max(value, 0); OnPropertyChanged(nameof(TargetDisplayCaseLimit)); getSomethingfromDisplayCaseLimit(); } }
@@ -46,7 +46,7 @@ namespace SteamCaculator
         public int ReachNextExp { get { return _ReachNextExp; } }
         private int _ReachNextExp;
 
-        public int ReachFriendsLimit { get { return _ReachFriendsLimit; } }
+        public int ReachFriendsLimit { get { if (_ReachFriendsLimit > 2000) return 2000; return _ReachFriendsLimit; } }
         private int _ReachFriendsLimit;
 
         public int ReachDisplayCaseLimit { get { return _ReachDisplayCaseLimit; } }
@@ -85,6 +85,7 @@ namespace SteamCaculator
         private void updateSomething()
         {
             _CurrentFriendsLimit = 250 + _CurrentLevel * 5;
+            if (_CurrentFriendsLimit > 2000) _CurrentFriendsLimit = 2000;
             _CurrentDisplayCaseLimit = Math.Min(_CurrentLevel / 10, 13);
             OnPropertyChanged(nameof(CurrentFriendsLimit));
             OnPropertyChanged(nameof(CurrentDisplayCaseLimit));
@@ -96,6 +97,7 @@ namespace SteamCaculator
             _ReachLevel = getLevelfromExp(Exp);
             _ReachNextExp = getExpfromLevel(_ReachLevel + 1) - Exp;
             _ReachFriendsLimit = 250 + _ReachLevel * 5;
+            if (_ReachFriendsLimit > 2000) _ReachFriendsLimit = 2000;
             _ReachDisplayCaseLimit = Math.Min(_ReachLevel / 10, 13);
             OnPropertyChanged(nameof(ReachNextExp));
             OnPropertyChanged(nameof(ReachLevel));
@@ -112,6 +114,7 @@ namespace SteamCaculator
             else
             {
                 _TargetFriendsLimit = 250 + _TargetLevel * 5;
+                if (_TargetFriendsLimit > 2000) _TargetFriendsLimit = 2000;
                 _TargetDisplayCaseLimit = Math.Min(_TargetLevel / 10, 13);
             }            
             OnPropertyChanged(nameof(TargetFriendsLimit));
@@ -127,6 +130,7 @@ namespace SteamCaculator
             }
             else
             {
+                if (_TargetFriendsLimit > 2000) _TargetFriendsLimit = 2000;
                 _TargetLevel = _TargetFriendsLimit % 5 == 0 ? (_TargetFriendsLimit - 250) / 5 : (_TargetFriendsLimit - 250) / 5 + 1;
                 _TargetDisplayCaseLimit = Math.Min(_TargetLevel / 10, 13);
             }            
@@ -145,6 +149,7 @@ namespace SteamCaculator
             {
                 _TargetLevel = Math.Min(_TargetDisplayCaseLimit, 13) * 10;
                 _TargetFriendsLimit = 250 + _TargetLevel * 5;
+                if (_TargetFriendsLimit > 2000) _TargetFriendsLimit = 2000;
             }            
             OnPropertyChanged(nameof(TargetLevel));
             OnPropertyChanged(nameof(TargetFriendsLimit));
